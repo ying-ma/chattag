@@ -28,14 +28,15 @@ Insight Data Science project
   
    <h2>Building a machine-learning model</h2>
          <p>Now that we have sentiment features from both text and emoticons, we need to build a machine-learning model to weigh them and combine them together into a sentiment score. There is a wide range of algorithms to choose from, and I ended up trying logistic regression, support vector machine (SVM, with rbf kernel) and gradient boost tree classifier. Each of these algorithms come from a slightly different aspect to do the job. Logistic regression is the representation of classic linear regression model, SVM is adaptive to the non-linear classification problem, while the tree-based algorithm is an ensemble approach to learn from existing labels. Here is some results of these models:</p>
-	<center>
-            <img src="../../static/images/rocs2.png" alt="rocs" width="600">
-        </center> 
-	<p><br>The metric I used to choose my model is the area under the receiver operating characteristic curve (AUC of ROC). This is a good way to deal with class imbalance and values both recall and precision equally. The figure above shows AUC of ROCs of the testing set with two separate modeling. The first model only uses sentiment features of text and the classification capability is not that great. However, the performance of the model is significantly boosted when the sentiment features of emoticons are incorporated.</p>
+	 
+![rocs2](https://user-images.githubusercontent.com/30357662/42741233-615f38c0-887e-11e8-8ea1-035d59a88927.png)
+
+<p><br>The metric I used to choose my model is the area under the receiver operating characteristic curve (AUC of ROC). This is a good way to deal with class imbalance and values both recall and precision equally. The figure above shows AUC of ROCs of the testing set with two separate modeling. The first model only uses sentiment features of text and the classification capability is not that great. However, the performance of the model is significantly boosted when the sentiment features of emoticons are incorporated.</p>
 
 
    <hr>
-        <h2>Insights</h2>
+        <h2>Summary</h2>
 	<p>Here, I built an algorithm to predict the sentiment of Twitch based on the text and emoticons. There are a few things I learned from this study. </p>
-	<p>First, the sentiment of text is not as important as the sentiment of emoticons in the context of live chat. </p>
-	<p>Second, even though the state-of-the-art tools are really powerful, but they are not applicable to every scenario. 
+	<p> In the context of live chat, it's not enough to just look at the text to detect the sentiment. The text in live chat is usually short, with an average of 3.6 words per second. There's just not enough words to reveal the true sentiment. 
+	When combined the sentiment features of emoticons, the prediction accuracy has significantly increased. This result suggests that emoticons play a much more important role than text in terms of revealing true sentiment of live chat. If there's more true labels, one can even dive deeper towards the semantic usage of emoticons and when the sentiment of text and emoticons are contradictory, it can be recognized as sarcasm.<br>  </p>
+	<p>In the process of finding my simple solutions, I came across other methods that are more technical. For example, I trained a word2vec word embedding model on 750,000 chat entries. The results of prediction is decent but not as good as the solution I presented above. Even though the word2vec model is really powerful and has been praised for its excellent performance in various cases. However, in the context of live chat, it suffers from sparsity issue due to the short length of the text. This study also gives me a great lesson as a data scientist that applying off-the-shelf and powerful method blindly to the data set can be dangerous. It's always beneficial to go back to the raw data and find the special characters of the data you're looking at. 
